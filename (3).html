@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>H&P Maxiflow - Quem Somos</title>
+  <link rel="icon" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Import da fonte Alegreya Sans SC -->
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Calibri", sans-serif; color: #fff; background-color: #000; scroll-behavior: smooth; }
+    a { text-decoration: none; color: inherit; }
+
+    header {
+      position: relative; z-index: 10; display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 30px; flex-wrap: wrap; background-color: rgba(0,0,0,0.3);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    }
+    header .logos { display: flex; align-items: center; gap: 20px; }
+    header .logos img { height: 50px; }
+    .language-switch { display: flex; gap: 10px; align-items: center; }
+    .language-switch img { width: 30px; height: 20px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border-radius: 4px; }
+    .language-switch img:hover { transform: scale(1.1) translateY(-2px); box-shadow: 0 3px 6px rgba(0,0,0,0.3); }
+
+    nav {
+      display: flex; justify-content: center; gap: 40px; padding: 10px 0; flex-wrap: wrap;
+      background-color: rgba(17,17,17,0.3); border-top: 2px solid #ffb400; text-transform: uppercase; z-index: 9;
+    }
+    nav a { color: #ffb400; font-weight: bold; font-size: 15px; position: relative; transition: transform 0.3s, box-shadow 0.3s, color 0.3s; }
+    nav a::after { content: ''; display: block; width: 0; height: 2px; background: #ffb400; transition: width 0.3s; margin: 0 auto; }
+    nav a:hover::after { width: 100%; }
+    nav a:hover { transform: scale(1.05) translateY(-1px); box-shadow: 0 3px 6px rgba(0,0,0,0.3); color: #fff; }
+
+    .hero {
+      position: relative; width: 100%; min-height: 600px; background: url("FRENTE.png") no-repeat center bottom;
+      background-size: cover; display: flex; align-items: center; justify-content: flex-start; padding: 0 10%;
+    }
+    .hero::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0) 100%); z-index: 1; }
+    .hero-content { position: relative; max-width: 600px; z-index: 2; opacity: 0; transform: translateY(30px); animation: subir-scroll 1.5s ease forwards; animation-timeline: scroll(hero-scroll); color: #fff; }
+    .hero-content h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: bold; margin-bottom: 20px; }
+    .hero-content p { font-size: clamp(1rem, 2.5vw, 1.1rem); line-height: 1.6; margin-bottom: 10px; }
+
+    @scroll-timeline hero-scroll { source: auto; orientation: block; scroll-offsets: start end; }
+    @keyframes subir-scroll { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    .faixa-transicao {
+      width: 100%; background: #000; color: #fff; text-align: left; padding: 18px 10%;
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+    }
+    .faixa-inner { max-width: 1200px; width: 100%; }
+    .faixa-inner p { margin: 0; font-size: clamp(0.95rem, 1.2vw, 1.1rem); font-weight: 600; line-height: 1.3; max-width: 800px; }
+    .parker { color: #ffb400; font-weight: bold; }
+    .linha-wrapper { overflow: hidden; display: inline-block; margin-top: 10px; position: relative; width: fit-content; }
+    .linha-dourada path {
+      stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 800; stroke-dashoffset: 800;
+      animation: desenhar 2s forwards, onda 2s ease-in-out infinite, ciclo 62s infinite;
+    }
+    @keyframes desenhar { to { stroke-dashoffset: 0; } }
+    @keyframes onda { 0% { transform: translateY(0); } 25% { transform: translateY(-1.5px); } 50% { transform: translateY(-3px); } 75% { transform: translateY(-1.5px); } 100% { transform: translateY(0); } }
+    @keyframes ciclo { 0%,48%{opacity:1; transform:translateX(0);}50%{opacity:0;transform:translateX(-100%);}52%{opacity:0;transform:translateX(100%);}54%,100%{opacity:1;transform:translateX(0);} }
+
+    .quem-somos {
+      display: flex; align-items: flex-start; gap: 40px; padding: 80px 10%; color: #111; background: #f2f2f2; position: relative;
+    }
+    .quem-somos.reverse { flex-direction: row-reverse; align-items: center; } /* centraliza verticalmente a imagem */
+    .quem-somos-text { flex: 1; max-width: 600px; }
+    .quem-somos-text h2 { font-family: 'Alegreya Sans SC', sans-serif; font-weight: 500; text-transform: uppercase; color: #000; font-size: 2rem; margin-bottom: 20px; text-align: left; }
+    .quem-somos-text .paragrafo { font-size: 1.1rem; line-height: 1.6; margin: 15px 0; color: #333; opacity: 0; transform: translateX(-20px); animation: aparecer-lateral 2s ease-out forwards; animation-timeline: view(quem-scroll); }
+    .quem-somos-text .paragrafo:nth-child(2) { animation-delay: 0.3s; } 
+    .quem-somos-text .paragrafo:nth-child(3) { animation-delay: 0.6s; }
+
+    .quem-somos-img { position: relative; flex: 1; max-width: 400px; display: flex; justify-content: center; align-items: center; } /* centraliza vertical e horizontalmente */
+    /* ajustes para Missão + Futuro */
+    .quem-somos.reverse .quem-somos-img img {
+      max-height: 100%;
+      height: auto;
+      width: 100%;
+      object-fit: contain;
+      border-radius: 12px; /* bordas arredondadas */
+      transform: translateX(-10%); /* desloca levemente para a esquerda */
+    }
+
+    @scroll-timeline quem-scroll { source: auto; orientation: block; scroll-offsets: start 80%, end 20%; }
+    @keyframes aparecer-lateral { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+    @media screen and (max-width: 1024px) { .hero { padding: 0 5%; justify-content: center; align-items: center; } .hero-content { text-align: center; } }
+    @media screen and (max-width: 768px) {
+      .faixa-transicao { padding: 14px 6%; }
+      .quem-somos { flex-direction: column; align-items: center; text-align: left; }
+      .quem-somos-img { max-width: 100%; }
+      .quem-somos-img::after { display: none; }
+      .linha-wrapper { width: 100%; }
+      .quem-somos.reverse .quem-somos-img img { transform: translateX(0); } /* remove deslocamento no mobile */
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <div class="logos">
+      <img src="logo.png" alt="Logo H & P Maxiflow">
+      <img src="parkerstore.png" alt="Logo Parker Store">
+    </div>
+    <div class="language-switch">
+      <a href="quem-somos.html" aria-label="Português"><img src="br.png" alt=""></a>
+      <a href="quem-somos-en.html" aria-label="English"><img src="us.png" alt=""></a>
+    </div>
+  </header>
+
+  <!-- Menu -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="quem-somos.html">Quem Somos</a>
+    <a href="servicos.html">Serviços</a>
+    <a href="contato.html">Contato</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Conquistamos a confiança do mercado</h1>
+      <p>A H&P é referência no mercado de soluções hidráulicas, oferecendo qualidade, inovação e credibilidade.</p>
+      <p>Com experiência consolidada, seguimos construindo confiança todos os dias.</p>
+    </div>
+  </section>
+
+  <!-- Faixa de transição -->
+  <section class="faixa-transicao" aria-label="Faixa de Transição">
+    <div class="faixa-inner">
+      <p>
+        26 anos focados em <strong class="parker">SOLUÇÕES</strong> e <strong class="parker">SERVIÇOS INOVADORES</strong> para o mercado de automação e controle de fluídos.
+      </p>
+      <div class="linha-wrapper">
+        <svg class="linha-dourada" width="100%" height="10" viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 5 Q25 0 50 5 T100 5 T150 5 T200 5 T250 5 T300 5 T350 5 T400 5" stroke="#ffb400" stroke-width="3" fill="transparent"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quem Somos -->
+  <section class="quem-somos">
+    <div class="quem-somos-text">
+      <h2>Quem Somos</h2>
+      <p class="paragrafo">A H&P Maxiflow está atuando no setor de serviços e material on e off-shore desde 1999. Com uma equipe formada por pessoas altamente capacitadas, incluindo um setor de engenharia, a excelência na avaliação, implementação e manutenção dos serviços que prestamos é garantida.</p>
+      <p class="paragrafo">Com destaque na linha de condução de fluidos, englobando mangueiras de alta, média e baixa pressão, inclusive termoplásticas, adaptadores de alta e baixa pressão em inox e aço carbono, também atuamos com serviços e comercialização de materiais hidráulicos, pneumáticos, instrumentações e filtros industriais. Sempre contando com o conhecimento avançado de nossa equipe, assim como a qualidade dos nossos produtos.</p>
+      <p class="paragrafo">Além da área de vendas de peças, também possuímos serviços de teste hidrostático em mangueiras, inclusive com registrador gráfico. Também efetuamos reparos em bombas hidráulicas e motores, reparo em cilindros hidráulicos e pneumáticos, montagem de unidades hidráulicas, sempre focados na eficiência do objetivo, embasados em projetos da nossa equipe de técnica e de engenheiros com mais de 25 anos de mercado.</p>
+    </div>
+    <div class="quem-somos-img">
+      <img src="imagem-quem-somos.png" alt="Imagem Quem Somos">
+    </div>
+  </section>
+
+  <!-- Missão e Futuro -->
+  <section class="quem-somos reverse">
+    <div class="quem-somos-text">
+      <h2>Missão</h2>
+      <p class="paragrafo">
+        Oferecer produtos e serviços de excelência, garantindo mangueiras e conexões de alta durabilidade que aumentem a eficiência operacional e reduzam o risco de vazamentos. Nossa prioridade é a segurança e a confiabilidade para cada cliente.
+      </p>
+      <p class="paragrafo">
+        Buscamos constantemente soluções inovadoras e sustentáveis, mantendo a integridade ambiental e fortalecendo nossa posição como referência no setor de óleo e gás.
+      </p>
+
+      <h2 style="margin-top: 40px;">Futuro</h2>
+      <p class="paragrafo">
+        Olhando para o futuro, continuamos firmes em nosso compromisso de oferecer as melhores soluções para nossos clientes. Planejamos expandir nossa presença no mercado, fortalecendo parcerias estratégicas e explorando novas oportunidades de negócios.
+      </p>
+      <p class="paragrafo">
+        Investimos em pesquisa e desenvolvimento para aprimorar nossos produtos e serviços, garantindo que possamos atender às demandas em constante evolução do mercado.
+      </p>
+    </div>
+    <div class="quem-somos-img">
+      <img src="estoque.png" alt="Imagem Missão e Futuro">
+    </div>
+  </section>
+
+  <!-- Valores -->
+  <section class="quem-somos valores">
+    <div class="quem-somos-text">
+      <h2>Valores</h2>
+      <p class="paragrafo">
+        Integridade, inovação, compromisso com a qualidade, segurança e sustentabilidade. Estes são os princípios que guiam cada ação da H&P Maxiflow.
+      </p>
+      <p class="paragrafo">
+        Priorizamos a confiança e a transparência em todos os processos, garantindo excelência em produtos e serviços para nossos clientes.
+      </p>
+    </div>
+    <div class="quem-somos-img">
+      <img src="imagem-quem-somos.png" alt="Imagem Valores">
+    </div>
+  </section>
+</body>
+</html>
